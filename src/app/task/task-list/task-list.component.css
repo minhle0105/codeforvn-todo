@@ -9,3 +9,7 @@
   height: 40px;
   width: 80px;
 }
+
+td#taskDescription:hover {
+  cursor: pointer;
+}
