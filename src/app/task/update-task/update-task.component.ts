@@ -17,7 +17,6 @@ export class UpdateTaskComponent implements OnInit {
 
   taskForm = new FormGroup({
     description: new FormControl(),
-    priorityLevel: new FormControl(),
   })
 
   constructor(private taskService: TaskService,
@@ -55,11 +54,7 @@ export class UpdateTaskComponent implements OnInit {
   };
 
   updateTaskInfo(id: number) {
-    let newTask: Task = {
-      description: this.taskForm.value.description,
-      priorityLevel: this.taskForm.value.priorityLevel
-    }
-
+    let newTask: Task = this.taskForm.value;
     this.taskService.updateTask(id, newTask).subscribe(() => {
       alert("Task updated");
     }, error => {
