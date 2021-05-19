@@ -4,3 +4,8 @@
   text-decoration-style: solid;
   text-decoration-thickness: 3px;
 }
+
+.btn {
+  height: 40px;
+  width: 80px;
+}
