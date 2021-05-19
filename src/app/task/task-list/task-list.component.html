@@ -21,9 +21,9 @@
         </thead>
         <tbody>
         <tr *ngFor="let task of taskList; index as i">
-          <th>{{i+1}}</th>
+          <th [class.completed]="task.completed">{{i+1}}</th>
           <td (click)="changeTaskStatus(i)" [class.completed]="task.completed">{{task.description}}</td>
-          <td>{{task.priorityLevel}}</td>
+          <td [class.completed]="task.completed">{{task.priorityLevel}}</td>
           <td><a class="btn btn-success" [routerLink]="['/tasks/edit', task.id]">Update</a></td>
           <td><button class="btn btn-danger" (click)="deleteTask(task.id)">Delete</button></td>
         </tr>
