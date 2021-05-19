@@ -30,4 +30,18 @@ export class TaskListComponent implements OnInit {
     });
   }
 
+  deleteTask(id: number) {
+    let choice = confirm("Delete this task?");
+    if (choice) {
+      this.taskService.deleteTask(id).subscribe(() => {
+        alert("Task deleted");
+        this.getAllTasks();
+      }, error => {
+        alert("Task cannot be deleted");
+        console.log(error);
+      })
+    }
+
+  }
+
 }

@@ -1,12 +1,34 @@
 <h2 class="text-center">
   Todo App
 </h2>
-<div class="col-md-8 offset-md-2">
-  <ul>
-    <li (click)="changeTaskStatus(i)"
-        [class.completed]="task.completed"
-        *ngFor="let task of taskList; index as i">
-      {{task.description}}
-    </li>
-  </ul>
+<div class="container">
+  <div class="row">
+    <div class="col-md-3 offset-md-9">
+      <a class="btn btn-primary" routerLink="/tasks/create">Add</a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <table class="table caption-top">
+        <caption>Task List</caption>
+        <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Task</th>
+          <th scope="col">Priority</th>
+          <th scope="col" colspan="2" style="text-align: center">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let task of taskList; index as i">
+          <th>{{i+1}}</th>
+          <td (click)="changeTaskStatus(i)" [class.completed]="task.completed">{{task.description}}</td>
+          <td>{{task.priorityLevel}}</td>
+          <td><a class="btn btn-success" [routerLink]="['/tasks/edit', task.id]">Update</a></td>
+          <td><button class="btn btn-danger" (click)="deleteTask(task.id)">Delete</button></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>

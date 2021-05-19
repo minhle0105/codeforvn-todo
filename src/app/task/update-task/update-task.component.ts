@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {Task} from '../../model/task';
+import {FormControl, FormGroup} from '@angular/forms';
+import {TaskService} from '../../service/task.service';
+import {ActivatedRoute} from '@angular/router';
+import {PriorityService} from '../../service/priority.service';
 
 @Component({
   selector: 'app-update-task',
@@ -8,11 +12,60 @@ import {Task} from '../../model/task';
 })
 export class UpdateTaskComponent implements OnInit {
   task: Task = {};
-  idToUpdate = -1;
+  idToUpdate: number = -1;
+  priorityLevels: string[] = [];
 
-  constructor() { }
+  taskForm = new FormGroup({
+    description: new FormControl(),
+    priorityLevel: new FormControl(),
+  })
+
+  constructor(private taskService: TaskService,
+              private activatedRoute: ActivatedRoute,
+              private priorityService: PriorityService) {
+    // get the current url link
+    this.activatedRoute.paramMap.subscribe(paramMap => {
+      // get the 'id' from current URL, assign the value to idToUpdate
+      this.idToUpdate = +paramMap.get('id');
+      // call the method to get all the current product info, assign the current info to the form so that the update form has the
+      // current info
+      this.getTaskById(this.idToUpdate);
+    })
+  }
 
   ngOnInit() {
+    this.getAllPriorityLevels();
+  }
+
+  getAllPriorityLevels() {
+    this.priorityLevels = this.priorityService.getAllPriority();
+  }
+
+  get id() {
+    return this.taskForm.get('id');
+  }
+
+  getTaskById(id: number) {
+    this.taskService.getTaskById(id).subscribe(thisTask => {
+      this.taskForm = new FormGroup( {
+        description: new FormControl(thisTask.description),
+        priorityLevel: new FormControl(thisTask.priorityLevel)
+      })
+    })
+  };
+
+  updateTaskInfo(id: number) {
+    let newTask: Task = {
+      description: this.taskForm.value.description,
+      priorityLevel: this.taskForm.value.priorityLevel
+    }
+
+    this.taskService.updateTask(id, newTask).subscribe(() => {
+      alert("Task updated");
+    }, error => {
+      alert("Task cannot be updated");
+      console.log(error)
+    })
   }
 
 }
