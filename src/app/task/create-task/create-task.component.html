@@ -1,0 +1,22 @@
+<a routerLink="/tasks">Task list</a>
+<form #taskForm="ngForm" (ngSubmit)="createNewTask(taskForm)">
+  <h1>Show Create Form</h1>
+  <table>
+    <tr>
+      <td>Task Description:</td>
+      <td><input [(ngModel)]="task.description" name="description" type="text"></td>
+    </tr>
+    <tr>
+      <td>Priority:</td>
+      <td>
+        <select [(ngModel)]="task.priorityLevel" name="priorityLevel">
+          <option *ngFor="let priorityLevel of priorityLeveList" [value]="priorityLevel">{{priorityLevel}}</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><input type="submit" value="Create"></td>
+    </tr>
+  </table>
+</form>

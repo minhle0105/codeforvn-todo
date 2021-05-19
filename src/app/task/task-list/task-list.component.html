@@ -1,0 +1,12 @@
+<h2 class="text-center">
+  Todo App
+</h2>
+<div class="col-md-8 offset-md-2">
+  <ul>
+    <li (click)="changeTaskStatus(i)"
+        [class.completed]="task.completed"
+        *ngFor="let task of taskList; index as i">
+      {{task.description}}
+    </li>
+  </ul>
+</div>
