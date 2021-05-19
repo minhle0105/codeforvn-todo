@@ -15,7 +15,7 @@ const routes: Routes = [
     component: CreateTaskComponent
   },
   {
-    path: 'task/edit/:id',
+    path: 'tasks/edit/:id',
     component: UpdateTaskComponent
   }
 ];
