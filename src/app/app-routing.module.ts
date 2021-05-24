@@ -18,10 +18,6 @@ const routes: Routes = [
   {
     path: 'tasks/edit/:id',
     component: UpdateTaskComponent
-  },
-  {
-    path: 'tasks/dialog/:id',
-    component: DeleteDialogComponent
   }
 ];
 
