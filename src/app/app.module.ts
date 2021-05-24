@@ -10,7 +10,8 @@ import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MaterialModule} from './material/material.module';
-import {MatInputModule, MatSelectModule} from '@angular/material';
+import {MatDialogModule, MatInputModule, MatSelectModule} from '@angular/material';
+import { DeleteDialogComponent } from './dialogs/delete-dialog/delete-dialog.component';
 
 
 @NgModule({
@@ -18,7 +19,9 @@ import {MatInputModule, MatSelectModule} from '@angular/material';
     AppComponent,
     TaskListComponent,
     CreateTaskComponent,
-    UpdateTaskComponent
+    UpdateTaskComponent,
+    DeleteDialogComponent,
+    DeleteDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +32,11 @@ import {MatInputModule, MatSelectModule} from '@angular/material';
     BrowserAnimationsModule,
     MaterialModule,
     MatInputModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDialogModule
+  ],
+  entryComponents: [
+    DeleteDialogComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

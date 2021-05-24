@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import {TaskListComponent} from './task/task-list/task-list.component';
 import {CreateTaskComponent} from './task/create-task/create-task.component';
 import {UpdateTaskComponent} from './task/update-task/update-task.component';
+import {DeleteDialogComponent} from './dialogs/delete-dialog/delete-dialog.component';
 
 
 const routes: Routes = [
@@ -17,6 +18,10 @@ const routes: Routes = [
   {
     path: 'tasks/edit/:id',
     component: UpdateTaskComponent
+  },
+  {
+    path: 'tasks/dialog/:id',
+    component: DeleteDialogComponent
   }
 ];
 
