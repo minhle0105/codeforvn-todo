@@ -13,25 +13,21 @@
   </div>
   <div class="row">
     <div class="col-md-8 offset-md-2">
-      <table class="table caption-top">
-        <caption>Task List</caption>
+      <table class="table" matSort (matSortChange)="sortData($event)">
         <thead>
         <tr>
-          <th scope="col">#</th>
-          <th scope="col">Task</th>
-          <th scope="col">Priority</th>
-          <th scope="col" colspan="2" style="text-align: center">Action</th>
+          <th mat-sort-header="description">Task</th>
+          <th mat-sort-header="priorityLevel">Priority</th>
+          <th colspan="2" style="text-align: center">Action</th>
         </tr>
         </thead>
         <tbody>
         <tr *ngFor="let task of taskList; index as i">
-          <th [class.completed]="task.completed">{{i+1}}</th>
           <td (click)="changeTaskStatus(i)" [class.completed]="task.completed" id="taskDescription">{{task.description}}</td>
           <td [class.completed]="task.completed">{{task.priorityLevel}}</td>
           <td style="text-align: center"><a class="buttons" mat-raised-button color="accent" [routerLink]="['/tasks/edit', task.id]">Update</a></td>
           <td style="text-align: center"><button class="buttons" mat-raised-button color="warn" (click)="deleteTask(task.id)">Delete</button></td>
         </tr>
-        </tbody>
       </table>
     </div>
   </div>

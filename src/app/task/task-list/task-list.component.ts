@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Task} from '../../model/task';
 import {TaskService} from '../../service/task.service';
-import {MatDialog, MatSnackBar} from '@angular/material';
+import {MatDialog, MatSnackBar, MatSort, MatTableDataSource, Sort} from '@angular/material';
 import {DeleteDialogComponent} from '../../dialogs/delete-dialog/delete-dialog.component';
 
 @Component({
@@ -18,6 +18,39 @@ export class TaskListComponent implements OnInit {
   ngOnInit() {
     this.getAllTasks();
   }
+
+  compare(a: number | string, b: number | string, isAsc: boolean, compareColumn: string) {
+    if (compareColumn === 'description') {
+      return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+    }
+    else {
+      if ((a == "Low" && b == "Medium") || (a == "Low" && b == "Medium") || (a == "Medium" && b == "High")) {
+        if (isAsc) {
+          return 1;
+        }
+      }
+      return -1;
+    }
+  }
+
+  sortData(sort: Sort) {
+    const data = this.taskList.slice();
+    if (!sort.active || sort.direction === '') {
+      this.taskList = data;
+      return;
+    }
+
+    this.taskList = data.sort((a,b) => {
+      const isAsc = sort.direction === 'asc';
+      switch (sort.active) {
+        case 'description':
+          return this.compare(a.description, b.description, isAsc, 'description');
+        case 'priorityLevel':
+          return this.compare(a.priorityLevel, b.priorityLevel, isAsc, 'priorityLevel');
+      }
+    })
+  }
+
   getAllTasks() {
     this.taskService.getAllTasks().subscribe(tasks => {
       this.taskList = tasks;

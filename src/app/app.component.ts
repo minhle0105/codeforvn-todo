@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
+import {MatSort} from '@angular/material';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'codeforvn-todo';
+  // @ts-ignore
+  @ViewChild(MatSort) sort: MatSort;
 }

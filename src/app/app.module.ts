@@ -10,7 +10,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MaterialModule} from './material/material.module';
-import {MatDialogModule, MatInputModule, MatSelectModule} from '@angular/material';
+import {MatDialogModule, MatInputModule, MatSelectModule, MatSortModule, MatTableModule} from '@angular/material';
 import { DeleteDialogComponent } from './dialogs/delete-dialog/delete-dialog.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 
@@ -33,7 +33,9 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatInputModule,
     MatSelectModule,
     MatDialogModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTableModule,
+    MatSortModule
   ],
   entryComponents: [
     DeleteDialogComponent
