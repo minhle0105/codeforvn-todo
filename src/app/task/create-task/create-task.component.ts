@@ -31,7 +31,8 @@ export class CreateTaskComponent implements OnInit {
 
   openMessage() {
     this.snackBar.open("Task Successfully Updated!", 'Close', {
-      duration: 1500
+      duration: 1000,
+      verticalPosition: 'top'
     });
   }
 
