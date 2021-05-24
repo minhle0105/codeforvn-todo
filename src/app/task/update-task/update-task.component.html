@@ -18,16 +18,14 @@
           <mat-label>Task Description</mat-label>
           <input matInput type="text" formControlName="description" name="description" id="taskDescription">
         </mat-form-field>
-      </div>
-      <div class="mb-3">
         <mat-form-field appearance="fill">
           <mat-label>Priority Level</mat-label>
-        <mat-select name="categoryId" id="priority" formControlName="priorityLevel">
-          <mat-option *ngFor="let priorityLevel of priorityLevels" [value]="priorityLevel">{{priorityLevel}}</mat-option>
-        </mat-select>
+          <mat-select name="categoryId" id="priority" formControlName="priorityLevel">
+            <mat-option *ngFor="let priorityLevel of priorityLevels" [value]="priorityLevel">{{priorityLevel}}</mat-option>
+          </mat-select>
         </mat-form-field>
       </div>
-      <button class="buttons" type="submit" mat-raised-button color="accent">Update</button>
+      <button class="buttons" type="submit" mat-raised-button color="accent"  [disabled]="!taskForm.get('description').value">Update</button>
     </form>
   </div>
 </div>

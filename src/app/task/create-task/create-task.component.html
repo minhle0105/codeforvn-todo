@@ -13,16 +13,14 @@
           <mat-label>Task Description</mat-label>
           <input matInput [(ngModel)]="task.description" name="description" type="text">
         </mat-form-field>
-      </div>
-      <div class="mb-3">
         <mat-form-field appearance="fill">
           <mat-label>Priority Level</mat-label>
-        <mat-select [(ngModel)]="task.priorityLevel" name="priorityLevel" id="priorityLevel">
-          <mat-option *ngFor="let priorityLevel of priorityLeveList" [value]="priorityLevel">{{priorityLevel}}</mat-option>
-        </mat-select>
+          <mat-select [(ngModel)]="task.priorityLevel" name="priorityLevel" id="priorityLevel">
+            <mat-option *ngFor="let priorityLevel of priorityLeveList" [value]="priorityLevel">{{priorityLevel}}</mat-option>
+          </mat-select>
         </mat-form-field>
       </div>
-      <button class="buttons" type="submit" mat-raised-button color="primary">Create</button>
+      <button class="buttons" type="submit" mat-raised-button color="primary" [disabled]="!task.description || !task.priorityLevel">Create</button>
     </form>
   </div>
 </div>
