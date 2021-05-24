@@ -18,20 +18,11 @@ export class TaskListComponent implements OnInit {
   displayedColumns = ['#', 'description', 'priorityLevel', 'actionUpdate', 'actionDelete'];
   constructor(private taskService: TaskService,
               private dialog: MatDialog,
-              private snackBar: MatSnackBar) { }
+              private snackBar: MatSnackBar) {
+  }
 
   ngOnInit() {
     this.getAllTasks();
-    this.calculateCompletedTasks();
-  }
-
-  calculateCompletedTasks() {
-    this.completedTask = 0;
-    for (let i = 0; i < this.taskList.length; i++) {
-      if (this.taskList[i].completed) {
-        this.completedTask += 1;
-      }
-    }
   }
 
   getAllTasks() {
@@ -40,16 +31,26 @@ export class TaskListComponent implements OnInit {
         return;
       }
       this.taskList = tasks;
+      this.completedTask = 0;
+      for (let i = 0; i < this.taskList.length; i++) {
+        if (this.taskList[i].completed) {
+          this.completedTask += 1;
+        }
+      }
       this.dataSource = new MatTableDataSource(this.taskList);
       this.dataSource.sort = this.sort;
-
     });
   };
 
   changeTaskStatus(i: number) {
     this.taskList[i].completed = !this.taskList[i].completed;
     this.taskService.updateTask(this.taskList[i].id, this.taskList[i]).subscribe(() => {
-      this.calculateCompletedTasks();
+      this.completedTask = 0;
+      for (let i = 0; i < this.taskList.length; i++) {
+        if (this.taskList[i].completed) {
+          this.completedTask += 1;
+        }
+      }
     }, error => {
       console.log(error);
     });
@@ -69,7 +70,12 @@ export class TaskListComponent implements OnInit {
       if (result) {
         this.taskService.deleteTask(id).subscribe(() => {
           this.openMessage();
-          this.calculateCompletedTasks();
+          this.completedTask = 0;
+          for (let i = 0; i < this.taskList.length; i++) {
+            if (this.taskList[i].completed) {
+              this.completedTask += 1;
+            }
+          }
           this.getAllTasks();
         }, error => {
           console.log(error)
