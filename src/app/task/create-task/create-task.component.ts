@@ -19,7 +19,8 @@ export class CreateTaskComponent implements OnInit {
 
   constructor(private taskService: TaskService,
               private priorityService: PriorityService,
-              private snackBar: MatSnackBar) { }
+              private snackBar: MatSnackBar) {
+  }
 
   ngOnInit() {
     this.getAllPriorityLevels();
@@ -52,3 +53,4 @@ export class CreateTaskComponent implements OnInit {
   }
 
 }
+
