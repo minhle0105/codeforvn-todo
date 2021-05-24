@@ -8,7 +8,7 @@
     </div>
     <div class="col-md-3"></div>
     <div class="col-md-3">
-      <a mat-raised-button color="primary" routerLink="/tasks/create" style="margin-top: 10px">Add</a>
+      <a class="buttons" mat-raised-button color="primary" routerLink="/tasks/create" style="margin-top: 10px">Add</a>
     </div>
   </div>
   <div class="row">
@@ -28,8 +28,8 @@
           <th [class.completed]="task.completed">{{i+1}}</th>
           <td (click)="changeTaskStatus(i)" [class.completed]="task.completed" id="taskDescription">{{task.description}}</td>
           <td [class.completed]="task.completed">{{task.priorityLevel}}</td>
-          <td style="text-align: center"><a mat-raised-button color="accent" [routerLink]="['/tasks/edit', task.id]">Update</a></td>
-          <td style="text-align: center"><button mat-raised-button color="warn" (click)="deleteTask(task.id)">Delete</button></td>
+          <td style="text-align: center"><a class="buttons" mat-raised-button color="accent" [routerLink]="['/tasks/edit', task.id]">Update</a></td>
+          <td style="text-align: center"><button class="buttons" mat-raised-button color="warn" (click)="deleteTask(task.id)">Delete</button></td>
         </tr>
         </tbody>
       </table>
