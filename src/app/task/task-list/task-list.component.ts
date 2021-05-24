@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Task} from '../../model/task';
 import {TaskService} from '../../service/task.service';
 import {MatDialog, MatSnackBar, MatSort, MatTableDataSource, Sort} from '@angular/material';
@@ -10,7 +10,11 @@ import {DeleteDialogComponent} from '../../dialogs/delete-dialog/delete-dialog.c
   styleUrls: ['./task-list.component.css']
 })
 export class TaskListComponent implements OnInit {
+  // @ts-ignore
+  @ViewChild(MatSort) sort: MatSort;
+  dataSource;
   taskList: Task[] = [];
+  displayedColumns = ['#', 'description', 'priorityLevel', 'actionUpdate', 'actionDelete'];
   constructor(private taskService: TaskService,
               private dialog: MatDialog,
               private snackBar: MatSnackBar) { }
@@ -19,41 +23,15 @@ export class TaskListComponent implements OnInit {
     this.getAllTasks();
   }
 
-  compare(a: number | string, b: number | string, isAsc: boolean, compareColumn: string) {
-    if (compareColumn === 'description') {
-      return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
-    }
-    else {
-      if ((a == "Low" && b == "Medium") || (a == "Low" && b == "Medium") || (a == "Medium" && b == "High")) {
-        if (isAsc) {
-          return 1;
-        }
-      }
-      return -1;
-    }
-  }
-
-  sortData(sort: Sort) {
-    const data = this.taskList.slice();
-    if (!sort.active || sort.direction === '') {
-      this.taskList = data;
-      return;
-    }
-
-    this.taskList = data.sort((a,b) => {
-      const isAsc = sort.direction === 'asc';
-      switch (sort.active) {
-        case 'description':
-          return this.compare(a.description, b.description, isAsc, 'description');
-        case 'priorityLevel':
-          return this.compare(a.priorityLevel, b.priorityLevel, isAsc, 'priorityLevel');
-      }
-    })
-  }
-
   getAllTasks() {
     this.taskService.getAllTasks().subscribe(tasks => {
+      if (!tasks) {
+        return;
+      }
       this.taskList = tasks;
+      this.dataSource = new MatTableDataSource(this.taskList);
+      this.dataSource.sort = this.sort;
+
     });
   };
 

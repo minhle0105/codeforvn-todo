@@ -2,10 +2,11 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 
 div.container {
-  border: 1px solid black;
   margin-top: 10px;
 }
-
+#taskDescription:hover {
+  cursor: pointer;
+}
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .buttons {
