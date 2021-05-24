@@ -10,6 +10,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MaterialModule} from './material/material.module';
+import {MatInputModule, MatSelectModule} from '@angular/material';
 
 
 @NgModule({
@@ -26,7 +27,9 @@ import {MaterialModule} from './material/material.module';
     ReactiveFormsModule,
     FormsModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    MatInputModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]
