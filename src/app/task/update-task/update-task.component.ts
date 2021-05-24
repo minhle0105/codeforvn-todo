@@ -4,6 +4,7 @@ import {FormControl, FormGroup} from '@angular/forms';
 import {TaskService} from '../../service/task.service';
 import {ActivatedRoute} from '@angular/router';
 import {PriorityService} from '../../service/priority.service';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-update-task',
@@ -21,7 +22,8 @@ export class UpdateTaskComponent implements OnInit {
 
   constructor(private taskService: TaskService,
               private activatedRoute: ActivatedRoute,
-              private priorityService: PriorityService) {
+              private priorityService: PriorityService,
+              private snackBar: MatSnackBar) {
     // get the current url link
     this.activatedRoute.paramMap.subscribe(paramMap => {
       // get the 'id' from current URL, assign the value to idToUpdate
@@ -44,6 +46,12 @@ export class UpdateTaskComponent implements OnInit {
     return this.taskForm.get('id');
   }
 
+  openMessage() {
+    this.snackBar.open("Task Successfully Updated!", 'Close', {
+      duration: 1500
+    });
+  }
+
   getTaskById(id: number) {
     this.taskService.getTaskById(id).subscribe(thisTask => {
       this.taskForm = new FormGroup( {
@@ -56,7 +64,7 @@ export class UpdateTaskComponent implements OnInit {
   updateTaskInfo(id: number) {
     let newTask: Task = this.taskForm.value;
     this.taskService.updateTask(id, newTask).subscribe(() => {
-      alert("Task updated");
+      this.openMessage();
     }, error => {
       alert("Task cannot be updated");
       console.log(error)

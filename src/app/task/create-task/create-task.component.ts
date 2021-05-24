@@ -3,6 +3,7 @@ import {Task} from '../../model/task';
 import {TaskService} from '../../service/task.service';
 import {PriorityService} from '../../service/priority.service';
 import {NgForm} from '@angular/forms';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-create-task',
@@ -17,7 +18,8 @@ export class CreateTaskComponent implements OnInit {
   priorityLeveList: string[] = [];
 
   constructor(private taskService: TaskService,
-              private priorityService: PriorityService) { }
+              private priorityService: PriorityService,
+              private snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.getAllPriorityLevels();
@@ -27,6 +29,12 @@ export class CreateTaskComponent implements OnInit {
     this.priorityLeveList = this.priorityService.getAllPriority();
   }
 
+  openMessage() {
+    this.snackBar.open("Task Successfully Updated!", 'Close', {
+      duration: 1500
+    });
+  }
+
   createNewTask(form: NgForm) {
     let newTask: Task = {
       description: form.value.description,
@@ -34,7 +42,7 @@ export class CreateTaskComponent implements OnInit {
       completed: false
     };
     this.taskService.createNewTask(newTask).subscribe(() => {
-      alert("Task is successfully created");
+      this.openMessage();
       form.reset();
     }, error => {
       alert("Task can not be created");

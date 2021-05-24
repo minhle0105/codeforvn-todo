@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Task} from '../../model/task';
 import {TaskService} from '../../service/task.service';
-import {MatDialog} from '@angular/material';
+import {MatDialog, MatSnackBar} from '@angular/material';
 import {DeleteDialogComponent} from '../../dialogs/delete-dialog/delete-dialog.component';
 
 @Component({
@@ -12,7 +12,8 @@ import {DeleteDialogComponent} from '../../dialogs/delete-dialog/delete-dialog.c
 export class TaskListComponent implements OnInit {
   taskList: Task[] = [];
   constructor(private taskService: TaskService,
-              private dialog: MatDialog) { }
+              private dialog: MatDialog,
+              private snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.getAllTasks();
@@ -31,16 +32,19 @@ export class TaskListComponent implements OnInit {
     });
   }
 
+  openMessage() {
+    this.snackBar.open("Task Successfully Deleted!", 'Close', {
+      duration: 1500
+    });
+  }
+
   deleteTask(id: number) {
     const deleteDialog = this.dialog.open(DeleteDialogComponent, {
-      data: {
-        title: "Confirm Delete Task",
-        message: "Are you sure you want to remove this task? This action cannot be undone"
-      }
     });
     deleteDialog.afterClosed().subscribe(result => {
       if (result) {
         this.taskService.deleteTask(id).subscribe(() => {
+          this.openMessage();
           this.getAllTasks();
         }, error => {
           console.log(error)

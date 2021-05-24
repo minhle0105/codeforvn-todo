@@ -12,7 +12,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MaterialModule} from './material/material.module';
 import {MatDialogModule, MatInputModule, MatSelectModule} from '@angular/material';
 import { DeleteDialogComponent } from './dialogs/delete-dialog/delete-dialog.component';
-
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -20,7 +20,6 @@ import { DeleteDialogComponent } from './dialogs/delete-dialog/delete-dialog.com
     TaskListComponent,
     CreateTaskComponent,
     UpdateTaskComponent,
-    DeleteDialogComponent,
     DeleteDialogComponent
   ],
   imports: [
@@ -33,7 +32,8 @@ import { DeleteDialogComponent } from './dialogs/delete-dialog/delete-dialog.com
     MaterialModule,
     MatInputModule,
     MatSelectModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSnackBarModule
   ],
   entryComponents: [
     DeleteDialogComponent
