@@ -14,6 +14,7 @@ export class TaskListComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   dataSource;
   taskList: Task[] = [];
+  completedTask: number;
   displayedColumns = ['#', 'description', 'priorityLevel', 'actionUpdate', 'actionDelete'];
   constructor(private taskService: TaskService,
               private dialog: MatDialog,
@@ -21,6 +22,16 @@ export class TaskListComponent implements OnInit {
 
   ngOnInit() {
     this.getAllTasks();
+    this.calculateCompletedTasks();
+  }
+
+  calculateCompletedTasks() {
+    this.completedTask = 0;
+    for (let i = 0; i < this.taskList.length; i++) {
+      if (this.taskList[i].completed) {
+        this.completedTask += 1;
+      }
+    }
   }
 
   getAllTasks() {
@@ -38,6 +49,7 @@ export class TaskListComponent implements OnInit {
   changeTaskStatus(i: number) {
     this.taskList[i].completed = !this.taskList[i].completed;
     this.taskService.updateTask(this.taskList[i].id, this.taskList[i]).subscribe(() => {
+      this.calculateCompletedTasks();
     }, error => {
       console.log(error);
     });
@@ -57,6 +69,7 @@ export class TaskListComponent implements OnInit {
       if (result) {
         this.taskService.deleteTask(id).subscribe(() => {
           this.openMessage();
+          this.calculateCompletedTasks();
           this.getAllTasks();
         }, error => {
           console.log(error)

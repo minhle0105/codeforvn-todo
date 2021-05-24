@@ -3,10 +3,12 @@
 </h2>
 <div class="container">
   <div class="row">
-    <div class="col-md-3 offset-md-2">
-      <h3>Total tasks: {{taskList.length}}</h3>
+    <div class="col-md-8 offset-md-2">
+      <mat-progress-bar mode="determinate" [value]=" 100 * (completedTask/taskList.length)"></mat-progress-bar>
     </div>
-    <div class="col-md-3"></div>
+  </div>
+  <div class="row">
+    <div class="col-md-9"></div>
     <div class="col-md-3">
       <a class="buttons" mat-raised-button color="primary" routerLink="/tasks/create" style="margin-top: 5px; margin-bottom: 5px">Add</a>
     </div>

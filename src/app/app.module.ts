@@ -10,7 +10,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MaterialModule} from './material/material.module';
-import {MatDialogModule, MatInputModule, MatSelectModule, MatSortModule, MatTableModule} from '@angular/material';
+import {MatDialogModule, MatInputModule, MatProgressBarModule, MatSelectModule, MatSortModule, MatTableModule} from '@angular/material';
 import { DeleteDialogComponent } from './dialogs/delete-dialog/delete-dialog.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 
@@ -22,21 +22,22 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     UpdateTaskComponent,
     DeleteDialogComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    FormsModule,
-    BrowserAnimationsModule,
-    MaterialModule,
-    MatInputModule,
-    MatSelectModule,
-    MatDialogModule,
-    MatSnackBarModule,
-    MatTableModule,
-    MatSortModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        ReactiveFormsModule,
+        FormsModule,
+        BrowserAnimationsModule,
+        MaterialModule,
+        MatInputModule,
+        MatSelectModule,
+        MatDialogModule,
+        MatSnackBarModule,
+        MatTableModule,
+        MatSortModule,
+        MatProgressBarModule
+    ],
   entryComponents: [
     DeleteDialogComponent
   ],
