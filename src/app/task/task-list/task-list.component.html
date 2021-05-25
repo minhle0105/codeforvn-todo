@@ -22,13 +22,13 @@
           <td [class.completed]="element.completed" mat-cell *matCellDef="let element; index as i"> {{i+1}} </td>
         </ng-container>
 
-        <!-- Name Column -->
+        <!-- Description Column -->
         <ng-container matColumnDef="description">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Task </th>
-          <td style="font-weight: bolder" id="taskDescription" (click)="changeTaskStatus(i)" [class.completed]="element.completed" mat-cell *matCellDef="let element; index as i"> {{element.description}} </td>
+          <td style="font-weight: bolder" id="taskDescription" (click)="changeTaskStatus(element.id)" [class.completed]="element.completed" mat-cell *matCellDef="let element; index as i"> {{element.description}} </td>
         </ng-container>
 
-        <!-- Weight Column -->
+        <!-- Priority Column -->
         <ng-container matColumnDef="priorityLevel">
           <th style="text-align: center; font-weight: bolder" mat-header-cell *matHeaderCellDef mat-sort-header> Priority Level </th>
           <td style="font-weight: bolder" [class.completed]="element.completed" mat-cell *matCellDef="let element"> {{element.priorityLevel}} </td>
