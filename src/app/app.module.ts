@@ -13,6 +13,7 @@ import {MaterialModule} from './material/material.module';
 import {MatDialogModule, MatInputModule, MatProgressBarModule, MatSelectModule, MatSortModule, MatTableModule} from '@angular/material';
 import { DeleteDialogComponent } from './dialogs/delete-dialog/delete-dialog.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {BackButtonDisableModule} from 'angular-disable-browser-back-button';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,10 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
         MatSnackBarModule,
         MatTableModule,
         MatSortModule,
-        MatProgressBarModule
+        MatProgressBarModule,
+        BackButtonDisableModule.forRoot({
+          preserveScrollPosition: true
+        })
     ],
   entryComponents: [
     DeleteDialogComponent
