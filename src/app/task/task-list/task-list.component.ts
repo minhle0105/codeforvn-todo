@@ -32,7 +32,6 @@ export class TaskListComponent implements OnInit {
         return;
       }
       this.taskList = tasks;
-      this.completedTask = 0;
       this.updateTaskRender();
       this.dataSource = new MatTableDataSource(this.taskList);
       this.dataSource.sort = this.sort;
