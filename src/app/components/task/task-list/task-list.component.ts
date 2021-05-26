@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {Task} from '../../model/task';
-import {TaskService} from '../../service/task.service';
+import {Task} from '../../../model/task';
+import {TaskService} from '../../../service/task.service';
 import {MatDialog, MatSnackBar, MatSort, MatTableDataSource, Sort} from '@angular/material';
 import {DeleteDialogComponent} from '../../dialogs/delete-dialog/delete-dialog.component';
 
@@ -81,6 +81,8 @@ export class TaskListComponent implements OnInit {
     });
   }
 
+
+
   deleteTask(id: number) {
     const deleteDialog = this.dialog.open(DeleteDialogComponent, {});
     deleteDialog.afterClosed().subscribe(result => {
@@ -90,7 +92,7 @@ export class TaskListComponent implements OnInit {
           this.updateTaskRender();
           this.getAllTasks();
         }, error => {
-          this.openFailToCreateMessage();
+          this.openFailToDeleteMessage();
           console.log(error);
         });
       }

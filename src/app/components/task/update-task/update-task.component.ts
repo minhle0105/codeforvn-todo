@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {Task} from '../../model/task';
+import {Task} from '../../../model/task';
 import {FormControl, FormGroup} from '@angular/forms';
-import {TaskService} from '../../service/task.service';
+import {TaskService} from '../../../service/task.service';
 import {ActivatedRoute} from '@angular/router';
-import {PriorityService} from '../../service/priority.service';
+import {PriorityService} from '../../../service/priority.service';
 import {MatSnackBar} from '@angular/material';
 
 @Component({
