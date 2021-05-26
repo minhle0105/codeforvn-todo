@@ -16,6 +16,12 @@ export class TaskListComponent implements OnInit {
   taskList: Task[] = [];
   completedTask: number;
   displayedColumns = ['#', 'description', 'priorityLevel', 'actionUpdate', 'actionDelete'];
+  addFormIsShown: boolean = false;
+
+  toggleAddForm() {
+    this.addFormIsShown = !this.addFormIsShown;
+  }
+
 
   constructor(private taskService: TaskService,
               private dialog: MatDialog,
@@ -61,9 +67,16 @@ export class TaskListComponent implements OnInit {
     }
   }
 
-  openMessage() {
+  openSuccessfullyDeletedMessage() {
     this.snackBar.open('Task Successfully Deleted!', 'Close', {
-      duration: 1000,
+      duration: 2000,
+      verticalPosition: 'top'
+    });
+  }
+
+  openFailToDeleteMessage() {
+    this.snackBar.open('Task Cannot Be Deleted!', 'Try Again', {
+      duration: 2000,
       verticalPosition: 'top'
     });
   }
@@ -73,15 +86,39 @@ export class TaskListComponent implements OnInit {
     deleteDialog.afterClosed().subscribe(result => {
       if (result) {
         this.taskService.deleteTask(id).subscribe(() => {
-          this.openMessage();
+          this.openSuccessfullyDeletedMessage();
           this.updateTaskRender();
           this.getAllTasks();
         }, error => {
+          this.openFailToCreateMessage();
           console.log(error);
         });
       }
     });
+  }
 
+  openSuccessfullyCreatedMessage() {
+    this.snackBar.open("Task Successfully Created!", 'Close', {
+      duration: 2000,
+      verticalPosition: 'top'
+    });
+  }
+
+  openFailToCreateMessage() {
+    this.snackBar.open("Task Cannot Be Created!", 'Try again', {
+      duration: 2000,
+      verticalPosition: 'top'
+    });
+  }
+
+  addTask(task: Task) {
+    this.taskService.createNewTask(task).subscribe(() => {
+      this.openSuccessfullyCreatedMessage();
+      this.getAllTasks();
+    }, error => {
+      this.openFailToCreateMessage();
+      console.log(error);
+    })
   }
 
 }

@@ -1,10 +1,9 @@
 <div class="container" style="margin-top: 10px">
   <div class="row">
     <div class="col-md-3">
-      <h1>Add Task</h1>
     </div>
     <div class="col-md-6"></div>
-    <div class="col-md-3"><a style="margin-top: 10px" class="btn btn-primary" routerLink="/tasks">Task list</a></div>
+    <div class="col-md-3"></div>
   </div>
   <div class="row">
     <form #taskForm="ngForm" (ngSubmit)="createNewTask(taskForm)">
@@ -20,7 +19,7 @@
           </mat-select>
         </mat-form-field>
       </div>
-      <button class="buttons" type="submit" mat-raised-button color="primary" [disabled]="!task.description || !task.priorityLevel">Create</button>
+      <button class="buttons" type="submit" mat-raised-button color="primary" [disabled]="!task.description || !task.priorityLevel">Save</button>
     </form>
   </div>
 </div>

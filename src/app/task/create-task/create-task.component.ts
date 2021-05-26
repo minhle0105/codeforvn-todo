@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Task} from '../../model/task';
 import {TaskService} from '../../service/task.service';
 import {PriorityService} from '../../service/priority.service';
@@ -15,11 +15,12 @@ export class CreateTaskComponent implements OnInit {
     priorityLevel: ''
   };
 
+  @Output() new_Task = new EventEmitter<Task>();
+
   priorityLeveList: string[] = [];
 
   constructor(private taskService: TaskService,
-              private priorityService: PriorityService,
-              private snackBar: MatSnackBar) {
+              private priorityService: PriorityService) {
   }
 
   ngOnInit() {
@@ -30,26 +31,14 @@ export class CreateTaskComponent implements OnInit {
     this.priorityLeveList = this.priorityService.getAllPriority();
   }
 
-  openMessage() {
-    this.snackBar.open("Task Successfully Updated!", 'Close', {
-      duration: 1000,
-      verticalPosition: 'top'
-    });
-  }
-
   createNewTask(form: NgForm) {
     let newTask: Task = {
       description: form.value.description,
       priorityLevel: form.value.priorityLevel,
       completed: false
     };
-    this.taskService.createNewTask(newTask).subscribe(() => {
-      this.openMessage();
-      form.reset();
-    }, error => {
-      alert("Task can not be created");
-      console.log(error);
-    })
+    this.new_Task.emit(newTask);
+    form.reset();
   }
 
 }
