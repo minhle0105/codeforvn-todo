@@ -10,7 +10,15 @@ import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MaterialModule} from './material/material.module';
-import {MatDialogModule, MatInputModule, MatProgressBarModule, MatSelectModule, MatSortModule, MatTableModule} from '@angular/material';
+import {
+    MatDialogModule,
+    MatIconModule,
+    MatInputModule,
+    MatProgressBarModule,
+    MatSelectModule,
+    MatSortModule,
+    MatTableModule
+} from '@angular/material';
 import { DeleteDialogComponent } from './dialogs/delete-dialog/delete-dialog.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {BackButtonDisableModule} from 'angular-disable-browser-back-button';
@@ -39,8 +47,9 @@ import {BackButtonDisableModule} from 'angular-disable-browser-back-button';
         MatSortModule,
         MatProgressBarModule,
         BackButtonDisableModule.forRoot({
-          preserveScrollPosition: true
-        })
+            preserveScrollPosition: true
+        }),
+        MatIconModule
     ],
   entryComponents: [
     DeleteDialogComponent
