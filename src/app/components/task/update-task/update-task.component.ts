@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {Task} from '../../../model/task';
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {TaskService} from '../../../service/task.service';
 import {ActivatedRoute} from '@angular/router';
 import {PriorityService} from '../../../service/priority.service';
-import {MatSnackBar} from '@angular/material';
+import {MAT_DIALOG_DATA, MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-update-task',
@@ -16,26 +16,22 @@ export class UpdateTaskComponent implements OnInit {
   idToUpdate: number = -1;
   priorityLevels: string[] = [];
 
-  taskForm = new FormGroup({
-    description: new FormControl(),
-  })
+  taskForm: FormGroup;
 
   constructor(private taskService: TaskService,
-              private activatedRoute: ActivatedRoute,
               private priorityService: PriorityService,
-              private snackBar: MatSnackBar) {
-    // get the current url link
-    this.activatedRoute.paramMap.subscribe(paramMap => {
-      // get the 'id' from current URL, assign the value to idToUpdate
-      this.idToUpdate = +paramMap.get('id');
-      // call the method to get all the current product info, assign the current info to the form so that the update form has the
-      // current info
-      this.getTaskById(this.idToUpdate);
-    })
+              private snackBar: MatSnackBar,
+              @Inject(MAT_DIALOG_DATA) public data: any,
+              private formBuilder: FormBuilder) {
   }
 
   ngOnInit() {
     this.getAllPriorityLevels();
+    this.taskForm = this.formBuilder.group({
+      id: [this.data.id],
+      description: [this.data.description],
+      priorityLevel: [this.data.priorityLevel]
+    })
   }
 
   getAllPriorityLevels() {
@@ -52,15 +48,6 @@ export class UpdateTaskComponent implements OnInit {
       verticalPosition: 'top'
     });
   }
-
-  getTaskById(id: number) {
-    this.taskService.getTaskById(id).subscribe(thisTask => {
-      this.taskForm = new FormGroup( {
-        description: new FormControl(thisTask.description),
-        priorityLevel: new FormControl(thisTask.priorityLevel)
-      })
-    })
-  };
 
   updateTaskInfo(id: number) {
     let newTask: Task = this.taskForm.value;

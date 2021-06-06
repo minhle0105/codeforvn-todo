@@ -22,6 +22,7 @@ import {
 import { DeleteDialogComponent } from './components/dialogs/delete-dialog/delete-dialog.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {BackButtonDisableModule} from 'angular-disable-browser-back-button';
+import { UpdateDialogComponent } from './components/dialogs/update-dialog/update-dialog.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import {BackButtonDisableModule} from 'angular-disable-browser-back-button';
     TaskListComponent,
     CreateTaskComponent,
     UpdateTaskComponent,
-    DeleteDialogComponent
+    DeleteDialogComponent,
+    UpdateDialogComponent
   ],
     imports: [
         BrowserModule,
