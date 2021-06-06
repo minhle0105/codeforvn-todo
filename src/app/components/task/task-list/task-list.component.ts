@@ -3,7 +3,6 @@ import {Task} from '../../../model/task';
 import {TaskService} from '../../../service/task.service';
 import {MatDialog, MatSnackBar, MatSort, MatTableDataSource, Sort} from '@angular/material';
 import {DeleteDialogComponent} from '../../dialogs/delete-dialog/delete-dialog.component';
-import {UpdateDialogComponent} from '../../dialogs/update-dialog/update-dialog.component';
 import {UpdateTaskComponent} from '../update-task/update-task.component';
 
 @Component({
@@ -129,14 +128,9 @@ export class TaskListComponent implements OnInit {
     let thisTaskToUpdate: Task = {};
     this.taskService.getTaskById(id).subscribe((task) => {
       thisTaskToUpdate = task;
-    })
-    const updateDialog = this.dialog.open(UpdateTaskComponent, {
-      data: thisTaskToUpdate
-    });
-    updateDialog.afterClosed().subscribe(result => {
-      if (result) {
-
-      }
+      this.dialog.open(UpdateTaskComponent, {
+        data: thisTaskToUpdate
+      })
     })
   }
 }
