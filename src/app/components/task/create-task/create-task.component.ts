@@ -1,7 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {Task} from '../../model/task';
-import {TaskService} from '../../service/task.service';
-import {PriorityService} from '../../service/priority.service';
+import {Task} from '../../../model/task';
+import {TaskService} from '../../../service/task.service';
+import {PriorityService} from '../../../service/priority.service';
 import {NgForm} from '@angular/forms';
 import {MatSnackBar} from '@angular/material';
 

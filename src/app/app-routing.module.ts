@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {TaskListComponent} from './task/task-list/task-list.component';
-import {CreateTaskComponent} from './task/create-task/create-task.component';
-import {UpdateTaskComponent} from './task/update-task/update-task.component';
+import {TaskListComponent} from './components/task/task-list/task-list.component';
+import {CreateTaskComponent} from './components/task/create-task/create-task.component';
+import {UpdateTaskComponent} from './components/task/update-task/update-task.component';
 
 
 const routes: Routes = [

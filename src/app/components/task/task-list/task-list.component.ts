@@ -1,8 +1,9 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {Task} from '../../model/task';
-import {TaskService} from '../../service/task.service';
-import {MatDialog, MatSnackBar, MatSort, MatTableDataSource, Sort} from '@angular/material';
+import {Task} from '../../../model/task';
+import {TaskService} from '../../../service/task.service';
+import {MatDialog, MatSnackBar, MatSort, MatTableDataSource} from '@angular/material';
 import {DeleteDialogComponent} from '../../dialogs/delete-dialog/delete-dialog.component';
+import {UpdateTaskComponent} from '../update-task/update-task.component';
 
 @Component({
   selector: 'app-task-list',
@@ -81,6 +82,8 @@ export class TaskListComponent implements OnInit {
     });
   }
 
+
+
   deleteTask(id: number) {
     const deleteDialog = this.dialog.open(DeleteDialogComponent, {});
     deleteDialog.afterClosed().subscribe(result => {
@@ -90,7 +93,7 @@ export class TaskListComponent implements OnInit {
           this.updateTaskRender();
           this.getAllTasks();
         }, error => {
-          this.openFailToCreateMessage();
+          this.openFailToDeleteMessage();
           console.log(error);
         });
       }
@@ -121,4 +124,18 @@ export class TaskListComponent implements OnInit {
     })
   }
 
+  onEdit(id: number) {
+    let thisTaskToUpdate: Task = {};
+    this.taskService.getTaskById(id).subscribe((task) => {
+      thisTaskToUpdate = task;
+      const updateDialog = this.dialog.open(UpdateTaskComponent, {
+        data: thisTaskToUpdate
+      });
+      updateDialog.afterClosed().subscribe(result => {
+        if (result) {
+          this.getAllTasks();
+        }
+      })
+    })
+  }
 }

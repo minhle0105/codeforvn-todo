@@ -1,8 +1,0 @@
-:host {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-}
-mat-form-field {
-  margin-right: 10px;
-}
