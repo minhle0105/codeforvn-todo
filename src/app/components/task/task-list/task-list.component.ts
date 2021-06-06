@@ -39,7 +39,7 @@ export class TaskListComponent implements OnInit {
         return;
       }
       this.taskList = tasks;
-      this.updateTaskRender();
+      this.updateCompletedTaskCount();
       this.dataSource = new MatTableDataSource(this.taskList);
       this.dataSource.sort = this.sort;
     });
@@ -52,14 +52,14 @@ export class TaskListComponent implements OnInit {
         this_Task = task;
         this_Task.completed = !this_Task.completed;
         this.taskService.updateTask(i, this_Task).subscribe(() => {
-          this.updateTaskRender();
+          this.updateCompletedTaskCount();
           this.getAllTasks();
         });
       }
     );
   }
 
-  updateTaskRender() {
+  updateCompletedTaskCount() {
     this.completedTask = 0;
     for (let i = 0; i < this.taskList.length; i++) {
       if (this.taskList[i].completed) {
@@ -82,15 +82,13 @@ export class TaskListComponent implements OnInit {
     });
   }
 
-
-
   deleteTask(id: number) {
     const deleteDialog = this.dialog.open(DeleteDialogComponent, {});
     deleteDialog.afterClosed().subscribe(result => {
       if (result) {
         this.taskService.deleteTask(id).subscribe(() => {
           this.openSuccessfullyDeletedMessage();
-          this.updateTaskRender();
+          this.updateCompletedTaskCount();
           this.getAllTasks();
         }, error => {
           this.openFailToDeleteMessage();
