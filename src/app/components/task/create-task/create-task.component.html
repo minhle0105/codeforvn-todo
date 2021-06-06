@@ -19,7 +19,7 @@
           </mat-select>
         </mat-form-field>
       </div>
-      <button class="buttons" type="submit" mat-raised-button color="primary" c>Save</button>
+      <button class="buttons" type="submit" mat-raised-button color="primary" [disabled]="!task.description || !task.priorityLevel">Save</button>
     </form>
   </div>
 </div>
