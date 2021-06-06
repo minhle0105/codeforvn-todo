@@ -1,8 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {Task} from '../../../model/task';
-import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {TaskService} from '../../../service/task.service';
-import {ActivatedRoute} from '@angular/router';
 import {PriorityService} from '../../../service/priority.service';
 import {MAT_DIALOG_DATA, MatSnackBar} from '@angular/material';
 
@@ -30,7 +29,8 @@ export class UpdateTaskComponent implements OnInit {
     this.taskForm = this.formBuilder.group({
       id: [this.data.id],
       description: [this.data.description],
-      priorityLevel: [this.data.priorityLevel]
+      priorityLevel: [this.data.priorityLevel],
+      completed: [this.data.completed]
     })
     this.idToUpdate = this.data.id;
   }
@@ -66,5 +66,4 @@ export class UpdateTaskComponent implements OnInit {
       console.log(error);
     })
   }
-
 }

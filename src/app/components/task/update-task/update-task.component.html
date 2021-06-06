@@ -3,6 +3,7 @@
   <form [formGroup]="taskForm" (ngSubmit)="updateTaskInfo(idToUpdate)">
     <div class="mb-2">
       <input type="hidden" formControlName="id">
+      <input type="hidden" formControlName="completed">
     </div>
     <div class="mb-4">
       <mat-form-field appearance="fill">
@@ -12,7 +13,8 @@
       <mat-form-field appearance="fill">
         <mat-label>Priority Level</mat-label>
         <mat-select name="categoryId" id="priority" formControlName="priorityLevel">
-          <mat-option *ngFor="let priorityLevel of priorityLevels" [value]="priorityLevel">{{priorityLevel}}</mat-option>
+          <mat-option *ngFor="let priorityLevel of priorityLevels"
+                      [value]="priorityLevel">{{priorityLevel}}</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-dialog-actions align="end">
