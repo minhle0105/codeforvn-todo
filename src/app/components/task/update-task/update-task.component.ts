@@ -32,6 +32,7 @@ export class UpdateTaskComponent implements OnInit {
       description: [this.data.description],
       priorityLevel: [this.data.priorityLevel]
     })
+    this.idToUpdate = this.data.id;
   }
 
   getAllPriorityLevels() {
@@ -42,8 +43,15 @@ export class UpdateTaskComponent implements OnInit {
     return this.taskForm.get('id');
   }
 
-  openMessage() {
+  openSuccessMessage() {
     this.snackBar.open("Task Successfully Updated!", 'Close', {
+      duration: 1000,
+      verticalPosition: 'top'
+    });
+  }
+
+  openFailMessage() {
+    this.snackBar.open("Task Cannot Be Updated!", 'Close', {
       duration: 1000,
       verticalPosition: 'top'
     });
@@ -52,10 +60,10 @@ export class UpdateTaskComponent implements OnInit {
   updateTaskInfo(id: number) {
     let newTask: Task = this.taskForm.value;
     this.taskService.updateTask(id, newTask).subscribe(() => {
-      this.openMessage();
+      this.openSuccessMessage();
     }, error => {
-      alert("Task cannot be updated");
-      console.log(error)
+      this.openFailMessage();
+      console.log(error);
     })
   }
 

@@ -1,8 +1,7 @@
 <h2 mat-dialog-title>Update task</h2>
 <mat-dialog-content class="mat-typography">
-
   <form [formGroup]="taskForm" (ngSubmit)="updateTaskInfo(idToUpdate)">
-    <div class="mb-3">
+    <div class="mb-2">
       <input type="hidden" formControlName="id">
     </div>
     <div class="mb-3">
@@ -16,12 +15,12 @@
           <mat-option *ngFor="let priorityLevel of priorityLevels" [value]="priorityLevel">{{priorityLevel}}</mat-option>
         </mat-select>
       </mat-form-field>
+      <mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close>Cancel</button>
+        <button mat-raised-button type="submit" color="accent" [mat-dialog-close]="true">Update</button>
+      </mat-dialog-actions>
     </div>
-    <button class="buttons" type="submit" mat-raised-button color="accent"  [disabled]="!taskForm.get('description').value">Update</button>
   </form>
 
 </mat-dialog-content>
-<mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-raised-button color="warn" [mat-dialog-close]="true">Delete</button>
-</mat-dialog-actions>
+

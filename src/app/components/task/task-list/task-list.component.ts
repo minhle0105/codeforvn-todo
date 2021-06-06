@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Task} from '../../../model/task';
 import {TaskService} from '../../../service/task.service';
-import {MatDialog, MatSnackBar, MatSort, MatTableDataSource, Sort} from '@angular/material';
+import {MatDialog, MatSnackBar, MatSort, MatTableDataSource} from '@angular/material';
 import {DeleteDialogComponent} from '../../dialogs/delete-dialog/delete-dialog.component';
 import {UpdateTaskComponent} from '../update-task/update-task.component';
 
@@ -128,8 +128,13 @@ export class TaskListComponent implements OnInit {
     let thisTaskToUpdate: Task = {};
     this.taskService.getTaskById(id).subscribe((task) => {
       thisTaskToUpdate = task;
-      this.dialog.open(UpdateTaskComponent, {
+      const updateDialog = this.dialog.open(UpdateTaskComponent, {
         data: thisTaskToUpdate
+      });
+      updateDialog.afterClosed().subscribe(result => {
+        if (result) {
+          this.getAllTasks();
+        }
       })
     })
   }
