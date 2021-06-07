@@ -1,7 +1,7 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {Task} from '../../../model/task';
 import {TaskService} from '../../../service/task.service';
-import {MatDialog, MatSnackBar, MatSort, MatTableDataSource} from '@angular/material';
+import {MatDialog, MatPaginator, MatSnackBar, MatSort, MatTableDataSource} from '@angular/material';
 import {DeleteDialogComponent} from '../../dialogs/delete-dialog/delete-dialog.component';
 import {UpdateTaskComponent} from '../update-task/update-task.component';
 
@@ -11,6 +11,7 @@ import {UpdateTaskComponent} from '../update-task/update-task.component';
   styleUrls: ['./task-list.component.css']
 })
 export class TaskListComponent implements OnInit {
+
   // @ts-ignore
   @ViewChild(MatSort) sort: MatSort;
   dataSource;
@@ -18,7 +19,8 @@ export class TaskListComponent implements OnInit {
   completedTask: number;
   displayedColumns = ['#', 'description', 'priorityLevel', 'actionUpdate', 'actionDelete'];
   addFormIsShown: boolean = false;
-
+  // @ts-ignore
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   toggleAddForm() {
     this.addFormIsShown = !this.addFormIsShown;
   }
@@ -42,6 +44,7 @@ export class TaskListComponent implements OnInit {
       this.updateCompletedTaskCount();
       this.dataSource = new MatTableDataSource(this.taskList);
       this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
     });
   };
 
