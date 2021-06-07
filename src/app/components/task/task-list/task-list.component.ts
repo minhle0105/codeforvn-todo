@@ -48,6 +48,21 @@ export class TaskListComponent implements OnInit {
     });
   };
 
+  applyFilter(event: Event) {
+    this.taskService.getAllTasks().subscribe(tasks => {
+      if (!tasks) {
+        return;
+      }
+      this.dataSource = new MatTableDataSource(tasks);
+      const filterValue = (event.target as HTMLInputElement).value;
+      this.dataSource.filter = filterValue.trim().toLowerCase();
+
+      if (this.dataSource.paginator) {
+        this.dataSource.paginator.firstPage();
+      }
+    })
+  }
+
   changeTaskStatus(i: number) {
     let this_Task: Task = {};
     this.taskService.getTaskById(i).subscribe(
