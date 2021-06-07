@@ -58,9 +58,6 @@ export class TaskListComponent implements OnInit {
       this.dataSource.filter = filterValue.trim().toLowerCase();
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-      // if (this.dataSource.paginator) {
-      //   this.dataSource.paginator.firstPage();
-      // }
     })
   }
 
