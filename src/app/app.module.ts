@@ -13,7 +13,7 @@ import {MaterialModule} from './material/material.module';
 import {
     MatDialogModule,
     MatIconModule,
-    MatInputModule,
+    MatInputModule, MatPaginatorModule,
     MatProgressBarModule,
     MatSelectModule,
     MatSortModule,
@@ -49,7 +49,8 @@ import {BackButtonDisableModule} from 'angular-disable-browser-back-button';
         BackButtonDisableModule.forRoot({
             preserveScrollPosition: true
         }),
-        MatIconModule
+        MatIconModule,
+        MatPaginatorModule
     ],
   entryComponents: [
     DeleteDialogComponent

@@ -1,7 +1,7 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {Task} from '../../../model/task';
 import {TaskService} from '../../../service/task.service';
-import {MatDialog, MatSnackBar, MatSort, MatTableDataSource} from '@angular/material';
+import {MatDialog, MatPaginator, MatSnackBar, MatSort, MatTableDataSource} from '@angular/material';
 import {DeleteDialogComponent} from '../../dialogs/delete-dialog/delete-dialog.component';
 import {UpdateTaskComponent} from '../update-task/update-task.component';
 
@@ -11,6 +11,7 @@ import {UpdateTaskComponent} from '../update-task/update-task.component';
   styleUrls: ['./task-list.component.css']
 })
 export class TaskListComponent implements OnInit {
+
   // @ts-ignore
   @ViewChild(MatSort) sort: MatSort;
   dataSource;
@@ -18,7 +19,8 @@ export class TaskListComponent implements OnInit {
   completedTask: number;
   displayedColumns = ['#', 'description', 'priorityLevel', 'actionUpdate', 'actionDelete'];
   addFormIsShown: boolean = false;
-
+  // @ts-ignore
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   toggleAddForm() {
     this.addFormIsShown = !this.addFormIsShown;
   }
@@ -39,11 +41,25 @@ export class TaskListComponent implements OnInit {
         return;
       }
       this.taskList = tasks;
-      this.updateTaskRender();
+      this.updateCompletedTaskCount();
       this.dataSource = new MatTableDataSource(this.taskList);
       this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
     });
   };
+
+  applyFilter(event: Event) {
+    this.taskService.getAllTasks().subscribe(tasks => {
+      if (!tasks) {
+        return;
+      }
+      this.dataSource = new MatTableDataSource(tasks);
+      const filterValue = (event.target as HTMLInputElement).value;
+      this.dataSource.filter = filterValue.trim().toLowerCase();
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    })
+  }
 
   changeTaskStatus(i: number) {
     let this_Task: Task = {};
@@ -52,14 +68,14 @@ export class TaskListComponent implements OnInit {
         this_Task = task;
         this_Task.completed = !this_Task.completed;
         this.taskService.updateTask(i, this_Task).subscribe(() => {
-          this.updateTaskRender();
+          this.updateCompletedTaskCount();
           this.getAllTasks();
         });
       }
     );
   }
 
-  updateTaskRender() {
+  updateCompletedTaskCount() {
     this.completedTask = 0;
     for (let i = 0; i < this.taskList.length; i++) {
       if (this.taskList[i].completed) {
@@ -82,15 +98,13 @@ export class TaskListComponent implements OnInit {
     });
   }
 
-
-
   deleteTask(id: number) {
     const deleteDialog = this.dialog.open(DeleteDialogComponent, {});
     deleteDialog.afterClosed().subscribe(result => {
       if (result) {
         this.taskService.deleteTask(id).subscribe(() => {
           this.openSuccessfullyDeletedMessage();
-          this.updateTaskRender();
+          this.updateCompletedTaskCount();
           this.getAllTasks();
         }, error => {
           this.openFailToDeleteMessage();
